@@ -1,8 +1,8 @@
 FROM dockcross/base:latest
 
-ENV XCC_PREFIX /usr/xcc
 ENV CROSS_TRIPLE armv6-linux-musleabihf
 ENV CROSS_ROOT ${XCC_PREFIX}/${CROSS_TRIPLE}-cross
+ENV SYSROOT=${CROSS_ROOT}/${CROSS_TRIPLE}-cross/sysroot
 
 RUN mkdir -p ${XCC_PREFIX}
 RUN curl --max-time 15 --retry 5 -LO http://musl.cc/${CROSS_TRIPLE}-cross.tgz
@@ -15,6 +15,9 @@ ENV AS=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-as \
     CXX=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-g++ \
     LD=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-ld \
     FC=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-gfortran
+
+ENV QEMU_LD_PREFIX "${SYSROOT}"
+ENV QEMU_SET_ENV "LD_LIBRARY_PATH=${CROSS_ROOT}/lib:${QEMU_LD_PREFIX}"
 
 COPY Toolchain.cmake ${CROSS_ROOT}/
 ENV CMAKE_TOOLCHAIN_FILE ${CROSS_ROOT}/Toolchain.cmake

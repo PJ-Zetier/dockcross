@@ -20,6 +20,8 @@ RUN apt-get update \
 # The CROSS_TRIPLE is a configured alias of the "armv6-unknown-linux-gnueabihf" target.
 ENV CROSS_TRIPLE armv6-unknown-linux-gnueabihf
 ENV CROSS_ROOT ${XCC_PREFIX}/${CROSS_TRIPLE}
+ENV SYSROOT=${CROSS_ROOT}/${CROSS_TRIPLE}/sysroot
+
 ENV AS=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-as \
     AR=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-ar \
     CC=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-gcc \
@@ -28,7 +30,7 @@ ENV AS=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-as \
     LD=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-ld \
     FC=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-gfortran
 
-ENV QEMU_LD_PREFIX "${CROSS_ROOT}/${CROSS_TRIPLE}/sysroot"
+ENV QEMU_LD_PREFIX "${SYSROOT}"
 ENV QEMU_SET_ENV "LD_LIBRARY_PATH=${CROSS_ROOT}/lib:${QEMU_LD_PREFIX}"
 
 COPY Toolchain.cmake ${CROSS_ROOT}/

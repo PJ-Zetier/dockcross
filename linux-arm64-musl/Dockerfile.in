@@ -1,8 +1,8 @@
 FROM dockcross/base:latest
 
-ENV XCC_PREFIX /usr/xcc
 ENV CROSS_TRIPLE aarch64-linux-musl
 ENV CROSS_ROOT ${XCC_PREFIX}/${CROSS_TRIPLE}-cross
+ENV SYSROOT ${CROSS_ROOT}/${CROSS_TRIPLE}/sysroot
 
 RUN mkdir -p ${XCC_PREFIX}
 RUN curl --max-time 15 --retry 5 -LO http://musl.cc/${CROSS_TRIPLE}-cross.tgz

@@ -16,8 +16,9 @@ RUN apt-get update \
 
 # The CROSS_TRIPLE is a configured alias of the "aarch64-unknown-linux-gnu" target.
 ENV CROSS_TRIPLE aarch64-unknown-linux-gnu
-
 ENV CROSS_ROOT ${XCC_PREFIX}/${CROSS_TRIPLE}
+ENV SYSROOT ${CROSS_ROOT}/${CROSS_TRIPLE}/sysroot
+
 ENV AS=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-as \
     AR=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-ar \
     CC=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-gcc \

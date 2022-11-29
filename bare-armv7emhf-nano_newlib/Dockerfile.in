@@ -21,6 +21,8 @@ ENV AS=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-as \
     SZ=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-size \
     OBJCOPY=${CROSS_ROOT}/bin/${CROSS_TRIPLE}-objcopy
 
+ENV SYSROOT=${CROSS_ROOT}/${CROSS_TRIPLE}/sysroot
+
 COPY Toolchain.cmake ${CROSS_ROOT}/
 ENV CMAKE_TOOLCHAIN_FILE ${CROSS_ROOT}/Toolchain.cmake
 
